@@ -1,4 +1,4 @@
-<h6><%= link_to "Edit", [comment.article, comment] %></h6>
+<h6><%= link_to "View", [comment.article, comment] %></h6>
 <p>
   <strong>Commenter:</strong>
   <%= comment.commenter %>
@@ -8,6 +8,7 @@
   <strong>Comment:</strong>
   <%= comment.body %>
 </p>
+
 <%= form_with url: [comment.article, comment], method: :delete, data: { turbo_confirm: "Are you sure?" } do %>
   <button type="submit" class="btn btn-danger">Delete</button>
 <% end %>

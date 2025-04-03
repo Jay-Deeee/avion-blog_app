@@ -1,0 +1,7 @@
+<h3><%= @comment.commenter %></h3>
+
+<p><%= @comment.body %></p>
+
+<h6><%= link_to "Edit", edit_article_comment_path %></h6>
+
+<%= link_to "Back to Article", article_path, type: "button", class: "btn btn-primary" %>
