@@ -10,7 +10,13 @@ class CommentsController < ApplicationController
 
   def create
     @comment = @article.comments.create(comment_params)
-    redirect_to article_path(@article)
+
+    if @comment.persisted?
+      redirect_to article_path(@article), notice: "Comment saved successfully."
+    else
+      flash[:alert] = "Failed to save comment."
+      redirect_to article_path(@article)
+    end
   end
 
   def edit; end
@@ -19,6 +25,7 @@ class CommentsController < ApplicationController
     if @comment.update(comment_params)
       redirect_to @article, notice: "Comment has been updated."
     else
+      flash[:alert] = "Failed to update comment."
       render :edit, status: :unprocessable_entity
     end
   end
@@ -26,12 +33,12 @@ class CommentsController < ApplicationController
   def destroy
     @comment.destroy
 
-    redirect_to @article, status: :see_other
+    redirect_to @article, status: :see_other, notice: "Comment has been deleted."
   end
 
   private
   def comment_params
-    params.require(:comment).permit(:commenter, :body)
+    params.require(:comment).permit(:commenter, :body, :status)
   end
 
   def set_article
