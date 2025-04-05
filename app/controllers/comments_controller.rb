@@ -14,8 +14,8 @@ class CommentsController < ApplicationController
     if @comment.persisted?
       redirect_to article_path(@article), notice: "Comment saved successfully."
     else
-      flash[:alert] = "Failed to save comment."
-      redirect_to article_path(@article)
+      flash.now[:alert] = "Failed to save comment."
+      render "articles/show", status: :unprocessable_entity
     end
   end
 

@@ -1,4 +1,4 @@
-<h1><%= @article.title %></h1> <h6><%= link_to "Edit", edit_article_path %></h6>
+<h1><%= @article.title %></h1> <h6><%= link_to "Edit", edit_article_path(@article) %></h6>
 
 <p><%= @article.body %></p>
 
@@ -9,10 +9,10 @@
 <%= link_to "Back to Home", articles_path, type: "button", class: "btn btn-primary" %>
 
 <h2>Comments</h2>
-<%= render @article.comments %>
+<%= render @article.comments.select(&:persisted?) %>
 
 <h2>Add a comment:</h2>
-<%= form_with model: [ @article, @article.comments.build ] do |form| %>
+<%= form_with model: [ @article, @comment ] do |form| %>
   <p>
     <%= form.label :commenter %><br>
     <%= form.text_field :commenter %>

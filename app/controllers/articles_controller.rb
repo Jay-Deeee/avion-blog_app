@@ -5,7 +5,9 @@ class ArticlesController < ApplicationController
     @articles = Article.all
   end
 
-  def show; end
+  def show
+    @comment = @article.comments.new
+  end
 
   def new
     @article = Article.new
@@ -15,7 +17,7 @@ class ArticlesController < ApplicationController
     @article = Article.new(article_params)
 
     if @article.save
-      redirect_to @article, notice: "Article: #{@article.title} saved successfully."
+      redirect_to @article, notice: "Article: '#{@article.title}' saved successfully."
     else
       flash[:alert] = "Failed to save article."
       render :new, status: :unprocessable_entity
