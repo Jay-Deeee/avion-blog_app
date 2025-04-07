@@ -1,5 +1,7 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy]
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+  rescue_from ActiveRecord::InvalidForeignKey, with: :invalid_foreign_key
 
   def index
     @articles = Article.all
@@ -47,5 +49,13 @@ class ArticlesController < ApplicationController
 
     def set_article
       @article = Article.find(params[:id])
+    end
+
+    def record_not_found
+      redirect_to articles_path, alert: "Record does not exist."
+    end
+
+    def invalid_foreign_key
+      redirect_to articles_path, alert: "Unable to delete article. Still referenced from comments."
     end
 end
