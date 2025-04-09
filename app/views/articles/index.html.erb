@@ -9,3 +9,9 @@
 </ul>
 
 <%= link_to "Create New Article", new_article_path, type: "button", class: "btn btn-primary" %>
+
+<br>
+
+<%= form_with url: destroy_user_session_path, method: :delete, data: { turbo_confirm: "Are you sure?" } do %>
+  <button type="submit" class="btn btn-danger">Sign out</button>
+<% end %>
